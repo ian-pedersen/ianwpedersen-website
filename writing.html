@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — Ian Pedersen</title>
+<meta name="description" content="Ian Pedersen — essays and writing">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+
+<header class="hero hero-compact">
+  <div class="wrap">
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="background.html">Background</a>
+      <a href="writing.html" class="nav-current">Writing</a>
+    </nav>
+    <h1>Writing</h1>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="published-works">
+    <div class="empty-state">
+      <p>Essays coming soon — check back here for future writing.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>&copy; <span id="year"></span> Ian Pedersen</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

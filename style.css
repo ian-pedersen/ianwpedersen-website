@@ -35,8 +35,37 @@ body {
 }
 
 .hero {
-  padding: 96px 0 64px;
+  padding: 40px 0 64px;
   border-bottom: 1px solid var(--border);
+}
+
+.hero-compact {
+  padding-bottom: 48px;
+}
+
+.hero-compact h1 {
+  margin-top: 24px;
+}
+
+.nav {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.nav a:hover {
+  color: var(--fg);
+}
+
+.nav a.nav-current {
+  color: var(--accent);
 }
 
 .eyebrow {
@@ -63,6 +92,10 @@ h1 {
 .bio {
   max-width: 56ch;
   color: var(--fg);
+}
+
+.bio a {
+  color: var(--accent);
 }
 
 .links {
