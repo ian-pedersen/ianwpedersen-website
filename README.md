@@ -1,6 +1,6 @@
-# ianwpedersen.com
+# ianwpedersen-website
 
-Personal site, hosted on GitHub Pages.
+Personal site for ianwpedersen.com, hosted on GitHub Pages.
 
 ## Editing
 
@@ -8,7 +8,7 @@ Edit `index.html` (content) and `style.css` (styling), then commit and push to `
 
 ## First-time setup
 
-1. Push this repo to GitHub as `ian-pedersen/ian-pedersen.github.io`.
+1. Push this repo to GitHub as `ian-pedersen/ianwpedersen-website`.
 2. In the repo's **Settings → Pages**, set the source to the `main` branch, root folder. Add `ianwpedersen.com` as the custom domain (the `CNAME` file already does this too) and enable **Enforce HTTPS** once it's available.
 3. At your domain registrar, point DNS at GitHub Pages:
    - Four `A` records for the apex domain (`ianwpedersen.com`) to:
