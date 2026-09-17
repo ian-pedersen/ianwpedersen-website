@@ -86,9 +86,109 @@ main {
   padding: 64px 24px;
 }
 
+section {
+  margin-bottom: 56px;
+}
+
+section:last-child {
+  margin-bottom: 0;
+}
+
 h2 {
   font-size: 1.4rem;
   margin-bottom: 24px;
+}
+
+.job {
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.job:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.job-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.job-location {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.job-dates {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.job-desc {
+  font-style: italic;
+  color: var(--muted);
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+}
+
+.job-role {
+  font-weight: 600;
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+}
+
+.job ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+}
+
+.job li {
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+.bullet-group {
+  margin-top: 16px;
+}
+
+.bullet-group h4 {
+  margin: 0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+}
+
+.bullet-group ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.bullet-group li {
+  margin-bottom: 6px;
+  font-size: 0.92rem;
+}
+
+.empty-state {
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .grid {
