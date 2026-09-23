@@ -98,7 +98,6 @@ a { text-decoration: none; color: inherit; }
 .c-maroon { color: var(--maroon); }
 .c-ochre { color: var(--ochre); }
 .c-amber { color: var(--amber); }
-.c-fg { color: var(--fg); }
 
 /* Pill buttons */
 .pill {
@@ -402,12 +401,12 @@ a { text-decoration: none; color: inherit; }
   color: var(--muted2);
 }
 
-/* Writing page */
-.writing-body {
+/* Essays page */
+.essays-body {
   padding: 70px 0;
 }
 
-.writing-body > p.intro {
+.essays-body > p.intro {
   margin: 0 0 28px;
   font-size: 26px;
   line-height: 1.5;
