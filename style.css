@@ -244,6 +244,32 @@ h2 {
   gap: 16px;
 }
 
+.recent-posts {
+  margin-top: 32px;
+}
+
+.post-date {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.post-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.post-card h3 a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.post-card h3 a:hover {
+  color: var(--accent);
+}
+
 .card {
   border: 1px solid var(--border);
   background: var(--card-bg);
