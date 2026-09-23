@@ -127,6 +127,45 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.5;
 }
 
+/* Home page feature rows (full-bleed hover) */
+.feature-row {
+  display: block;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.feature-row-pad {
+  padding: 60px 0;
+}
+
+.feature-row.theme-maroon { color: var(--maroon); }
+.feature-row.theme-ochre { color: var(--ochre); }
+.feature-row.theme-rust { color: var(--rust); }
+
+.feature-row.theme-maroon:hover { background: var(--maroon); color: #ffffff; }
+.feature-row.theme-ochre:hover { background: var(--ochre); color: #ffffff; }
+.feature-row.theme-rust:hover { background: var(--rust); color: #ffffff; }
+
+.feature-row h2 {
+  margin: 0 0 22px;
+  font-size: 34px;
+  font-weight: 400;
+  color: inherit;
+}
+
+.feature-row .row-eyebrow {
+  color: inherit;
+}
+
+.pill-static {
+  display: inline-flex;
+  padding: 9px 18px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
 /* Alternating text + media rows */
 .row {
   display: flex;
