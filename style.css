@@ -224,6 +224,20 @@ h2 {
   font-size: 0.95rem;
 }
 
+.empty-state p {
+  margin: 0 0 12px;
+}
+
+.substack-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.substack-link:hover {
+  text-decoration: underline;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
