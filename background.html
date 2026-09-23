@@ -5,39 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Background — Ian Pedersen</title>
 <meta name="description" content="Ian Pedersen — background and resume">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
 
-<header class="hero hero-compact">
-  <div class="wrap">
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="background.html" class="nav-current">Background</a>
-      <a href="projects.html">Projects</a>
-      <a href="writing.html">Writing</a>
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/headshot.jpg" alt="Ian Pedersen">
+      <span>Ian Pedersen</span>
+    </div>
+    <nav class="nav mono">
+      <a href="index.html" class="c-rust">Home</a>
+      <a href="writing.html" class="c-maroon">Writing</a>
+      <a href="projects.html" class="c-ochre">Projects</a>
+      <a href="background.html" class="current c-amber">CV</a>
     </nav>
-    <h1>Background</h1>
-    <div class="links">
+  </header>
+
+  <div class="page-title">
+    <h1 class="c-rust">Background</h1>
+    <div class="page-links mono">
       <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
     </div>
   </div>
-</header>
+</div>
 
-<main class="wrap">
-
-  <section id="experience">
-    <h2>Experience</h2>
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="cv-section">
+    <p class="cv-eyebrow mono">Experience</p>
 
     <article class="job">
       <div class="job-header">
         <div>
-          <h3>Tribunus Health</h3>
-          <p class="job-location">Charlottesville, VA / Seattle, WA</p>
+          <h2>Tribunus Health</h2>
+          <p class="job-location mono">Charlottesville, VA / Seattle, WA</p>
         </div>
-        <p class="job-dates">2021 – 2026</p>
+        <p class="job-dates mono">2021 – 2026</p>
       </div>
       <p class="job-desc">
         Boutique healthcare consulting firm advising providers across 50 states on pricing, contract
@@ -49,7 +58,7 @@
       </p>
 
       <div class="bullet-group">
-        <h4>Client Leadership &amp; Influence</h4>
+        <p class="label mono">Client Leadership &amp; Influence</p>
         <ul>
           <li>Independently led a client contract strategy engagement end-to-end within 9 months of hire — becoming the first Associate in firm history to own a client engagement — by structuring the problem, building the analysis, and delivering recommendations to the C-suite</li>
           <li>Simultaneously managed 6 client engagements end-to-end while leading a 4-person team on the firm's 5th largest account</li>
@@ -58,7 +67,7 @@
       </div>
 
       <div class="bullet-group">
-        <h4>Pricing &amp; Analytical Problem Solving</h4>
+        <p class="label mono">Pricing &amp; Analytical Problem Solving</p>
         <ul>
           <li>Drove $40M in revenue growth for 31 clients by benchmarking market rates, modeling negotiation scenarios, and leading contract negotiations with the 5 largest national insurers</li>
           <li>Delivered 37x ROI and $3.3M in new annual revenue for a rural health group by identifying 3 loss-making product lines, restructuring unit economics, and reversing negative margins within 8 months</li>
@@ -67,7 +76,7 @@
       </div>
 
       <div class="bullet-group">
-        <h4>Growth, M&amp;A &amp; Firm Building</h4>
+        <p class="label mono">Growth, M&amp;A &amp; Firm Building</p>
         <ul>
           <li>Drove an average 25% revenue increase across 3 PE-backed acquisitions by designing and executing post-merger integration — consolidating contracts and renegotiating reimbursement rates</li>
           <li>Partnered with a health-tech startup to translate raw price transparency data into actionable visualizations — identifying data flaws that improved platform accuracy and enabled a new segment of growth-focused clients</li>
@@ -78,10 +87,10 @@
     <article class="job">
       <div class="job-header">
         <div>
-          <h3>Vault Practice Management</h3>
-          <p class="job-location">Charlottesville, VA</p>
+          <h2>Vault Practice Management</h2>
+          <p class="job-location mono">Charlottesville, VA</p>
         </div>
-        <p class="job-dates">2022 – 2024</p>
+        <p class="job-dates mono">2022 – 2024</p>
       </div>
       <p class="job-desc">
         Holding company formed to acquire independent healthcare practices and create value through
@@ -96,17 +105,18 @@
         </ul>
       </div>
     </article>
-  </section>
+  </div>
+</div>
 
-  <section id="education">
-    <h2>Education</h2>
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="cv-section">
+    <p class="cv-eyebrow mono">Education</p>
 
-    <article class="job">
+    <article class="job edu">
       <div class="job-header">
-        <div>
-          <h3>University of California, Berkeley — Haas School of Business</h3>
-        </div>
-        <p class="job-dates">May 2028</p>
+        <h2>University of California, Berkeley — Haas School of Business</h2>
+        <p class="job-dates mono">May 2028</p>
       </div>
       <p class="job-role">Master of Business Administration</p>
       <ul>
@@ -114,43 +124,51 @@
       </ul>
     </article>
 
-    <article class="job">
+    <article class="job edu">
       <div class="job-header">
         <div>
-          <h3>University of Virginia</h3>
-          <p class="job-location">Charlottesville, VA</p>
+          <h2>University of Virginia</h2>
+          <p class="job-location mono">Charlottesville, VA</p>
         </div>
-        <p class="job-dates">May 2021</p>
+        <p class="job-dates mono">May 2021</p>
       </div>
       <p class="job-role">Bachelor of Science, Systems Engineering; Minor in Economics — GPA: 3.6; Graduated with Distinction</p>
       <ul>
         <li>Undergraduate researcher, UVA Children's Hospital: built an optimization model using R to improve pediatric heart transplant survival rate through improved waitlist heuristics; work featured by UVAToday</li>
       </ul>
     </article>
-  </section>
+  </div>
+</div>
 
-  <section id="additional">
-    <h2>Additional</h2>
-    <div class="grid">
-      <article class="card">
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="cv-section">
+    <p class="cv-eyebrow mono">Additional</p>
+    <div class="info-grid">
+      <div class="info-card">
         <h3>Technical Skills</h3>
         <p>Advanced Excel modeling, RStudio, SQL, Tableau, AI prompt engineering</p>
-      </article>
-      <article class="card">
+      </div>
+      <div class="info-card">
         <h3>Community</h3>
         <p>Volunteer youth basketball coach since 2021; led teams of 6–18 players ages 9–17 across 5 seasons</p>
-      </article>
-      <article class="card">
+      </div>
+      <div class="info-card">
         <h3>Interests</h3>
         <p>Ran at least one mile every day in 2025; training for first triathlon (Spring 2027); backpacking; F1; NBA</p>
-      </article>
+      </div>
     </div>
-  </section>
+  </div>
+</div>
 
-</main>
-
-<footer class="wrap">
-  <p>&copy; <span id="year"></span> Ian Pedersen</p>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links mono">
+      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="copyright">&copy; Ian Pedersen <span id="year"></span>. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>

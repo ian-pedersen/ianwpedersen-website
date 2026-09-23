@@ -5,34 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ian Pedersen</title>
 <meta name="description" content="Ian Pedersen — personal site">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
 
-<header class="hero">
-  <div class="wrap">
-    <nav class="nav">
-      <a href="index.html" class="nav-current">Home</a>
-      <a href="background.html">Background</a>
-      <a href="projects.html">Projects</a>
-      <a href="writing.html">Writing</a>
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/headshot.jpg" alt="Ian Pedersen">
+      <span>Ian Pedersen</span>
+    </div>
+    <nav class="nav mono">
+      <a href="index.html" class="current c-rust">Home</a>
+      <a href="writing.html" class="c-maroon">Writing</a>
+      <a href="projects.html" class="c-ochre">Projects</a>
+      <a href="background.html" class="c-amber">CV</a>
     </nav>
-    <p class="eyebrow">Hi, I'm</p>
-    <h1>Ian Pedersen</h1>
-    <p class="bio">
-      Welcome to my personal site. Take a look at my <a href="background.html">background</a>,
-      browse my <a href="projects.html">projects</a>, or check out my <a href="writing.html">writing</a>.
-    </p>
-    <div class="links">
-      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+  </header>
+</div>
+
+<div class="wrap">
+  <div class="home-hero">
+    <p>I'm Ian Pedersen, a first-year MBA student at Berkeley Haas. This website is an experiment. I'm not sure what it will turn into, but for now it will be a place where my ideas and pet projects will live. Cheers!</p>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="row">
+    <div class="row-content">
+      <a href="writing.html" class="row-eyebrow mono c-maroon">Essays</a>
+      <h2 class="c-maroon">Essays on Substack</h2>
+      <a href="https://ianpedersen2.substack.com" target="_blank" rel="noopener" class="pill c-maroon">
+        <span class="mono">Read on Substack &rarr;</span>
+      </a>
+    </div>
+    <div class="row-media tint2">
+      <span class="mono">[Image placeholder]</span>
     </div>
   </div>
-</header>
+</div>
 
-<footer class="wrap">
-  <p>&copy; <span id="year"></span> Ian Pedersen</p>
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="row">
+    <div class="row-content">
+      <a href="projects.html" class="row-eyebrow mono c-ochre">Projects</a>
+      <h2 class="c-ochre">See what I'm building</h2>
+      <a href="projects.html" class="pill c-ochre">
+        <span class="mono">Explore</span>
+      </a>
+    </div>
+    <div class="row-media tint3">
+      <span class="mono">[Image placeholder]</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="row">
+    <div class="row-content">
+      <a href="background.html" class="row-eyebrow mono c-rust">Experience</a>
+      <h2 class="c-rust">Check out my CV</h2>
+      <a href="background.html" class="pill c-rust">
+        <span class="mono">Explore</span>
+      </a>
+    </div>
+    <div class="row-media tint1">
+      <span class="mono">[Image placeholder]</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div style="padding: 60px 0;">
+    <a href="background.html" class="pill c-fg">
+      <span class="mono">See my background</span>
+    </a>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links mono">
+      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="copyright">&copy; Ian Pedersen <span id="year"></span>. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>

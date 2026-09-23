@@ -5,49 +5,81 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Projects — Ian Pedersen</title>
 <meta name="description" content="Ian Pedersen — projects and tools">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
 
-<header class="hero hero-compact">
-  <div class="wrap">
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="background.html">Background</a>
-      <a href="projects.html" class="nav-current">Projects</a>
-      <a href="writing.html">Writing</a>
-    </nav>
-    <h1>Projects</h1>
-  </div>
-</header>
-
-<main class="wrap">
-  <section id="projects-list">
-    <div class="grid">
-      <article class="card project-card">
-        <h3>AI Prompting Toolkit</h3>
-        <p>
-          A set of prompting frameworks for AI-assisted work, built on prompting guidelines from
-          Google and others: planning PRDs, designing implementations, building them, and
-          auditing/debugging the result.
-        </p>
-        <span class="watermark">Under construction</span>
-      </article>
-      <article class="card project-card">
-        <h3>NFL Pick 'Em Model</h3>
-        <p>
-          A weekly prediction model for NFL pick 'em pools, trained on the past five years of
-          game data.
-        </p>
-        <span class="watermark">Under construction</span>
-      </article>
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/headshot.jpg" alt="Ian Pedersen">
+      <span>Ian Pedersen</span>
     </div>
-  </section>
-</main>
+    <nav class="nav mono">
+      <a href="index.html" class="c-rust">Home</a>
+      <a href="writing.html" class="c-maroon">Writing</a>
+      <a href="projects.html" class="current c-ochre">Projects</a>
+      <a href="background.html" class="c-amber">CV</a>
+    </nav>
+  </header>
 
-<footer class="wrap">
-  <p>&copy; <span id="year"></span> Ian Pedersen</p>
+  <div class="page-title">
+    <h1 class="c-ochre">Projects</h1>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="row">
+    <div class="row-content">
+      <span class="badge-construction mono c-rust">Under construction</span>
+      <h2 class="c-rust">AI Prompting Toolkit</h2>
+      <p class="row-desc">A set of prompting frameworks for AI-assisted work, built on prompting guidelines from Google and others: planning PRDs, designing implementations, building them, and auditing/debugging the result.</p>
+    </div>
+    <div class="row-media tint1">
+      <span class="mono">[Image placeholder]</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="row">
+    <div class="row-content">
+      <span class="badge-construction mono c-maroon">Under construction</span>
+      <h2 class="c-maroon">NFL Pick 'Em Model</h2>
+      <p class="row-desc">A weekly prediction model for NFL pick 'em pools, trained on the past five years of game data.</p>
+    </div>
+    <div class="row-media tint2">
+      <span class="mono">[Image placeholder]</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="row">
+    <div class="row-content">
+      <h2 class="c-ochre">Chess Coach</h2>
+      <p class="row-desc">A local tool that analyzes your Chess.com games for practical mistakes — moves players near your rating would realistically find — instead of just Stockfish's objectively-best line. Runs Stockfish alongside Maia, a neural net trained on human games at specific rating bands, to separate practical misses from common mistakes at your level and engine-only finds nobody would spot over the board.</p>
+    </div>
+    <div class="row-media tint3">
+      <span class="mono">[Image placeholder]</span>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links mono">
+      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="copyright">&copy; Ian Pedersen <span id="year"></span>. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>

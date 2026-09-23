@@ -5,36 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Writing — Ian Pedersen</title>
 <meta name="description" content="Ian Pedersen — essays and writing">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
 
-<header class="hero hero-compact">
-  <div class="wrap">
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="background.html">Background</a>
-      <a href="projects.html">Projects</a>
-      <a href="writing.html" class="nav-current">Writing</a>
-    </nav>
-    <h1>Writing</h1>
-  </div>
-</header>
-
-<main class="wrap">
-  <section id="published-works">
-    <div class="empty-state">
-      <p>I publish my essays on Substack.</p>
-      <a class="substack-link" href="https://ianpedersen2.substack.com" target="_blank" rel="noopener">Read on Substack &rarr;</a>
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/headshot.jpg" alt="Ian Pedersen">
+      <span>Ian Pedersen</span>
     </div>
+    <nav class="nav mono">
+      <a href="index.html" class="c-rust">Home</a>
+      <a href="writing.html" class="current c-maroon">Writing</a>
+      <a href="projects.html" class="c-ochre">Projects</a>
+      <a href="background.html" class="c-amber">CV</a>
+    </nav>
+  </header>
 
-    <div id="recent-posts" class="grid recent-posts" hidden></div>
-  </section>
-</main>
+  <div class="page-title">
+    <h1 class="c-maroon">Writing</h1>
+  </div>
+</div>
 
-<footer class="wrap">
-  <p>&copy; <span id="year"></span> Ian Pedersen</p>
+<div class="divider"><div class="wrap"></div></div>
+<div class="wrap">
+  <div class="writing-body">
+    <p class="intro">I publish my essays on Substack.</p>
+    <a href="https://ianpedersen2.substack.com" target="_blank" rel="noopener" class="pill c-maroon">
+      <span class="mono">Read on Substack &rarr;</span>
+    </a>
+
+    <div id="recent-posts" class="recent-posts" hidden>
+      <p class="recent-posts-label mono">Recent posts</p>
+      <div id="recent-posts-list"></div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links mono">
+      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="copyright">&copy; Ian Pedersen <span id="year"></span>. All rights reserved.</p>
+  </div>
 </footer>
 
 <script>
@@ -51,15 +70,16 @@
     .then(posts => {
       if (!posts || !posts.length) return;
       const container = document.getElementById('recent-posts');
-      container.innerHTML = posts.map(post => {
+      const list = document.getElementById('recent-posts-list');
+      list.innerHTML = posts.map(post => {
         const date = post.pub_date
           ? new Date(post.pub_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
           : '';
         return `
-          <article class="card post-card">
-            <p class="post-date">${date}</p>
+          <article class="post-card">
+            <p class="post-date mono">${date}</p>
             <h3><a href="${post.url}" target="_blank" rel="noopener">${escapeHtml(post.title)}</a></h3>
-            <p>${escapeHtml(post.excerpt)}</p>
+            <p class="excerpt">${escapeHtml(post.excerpt)}</p>
           </article>
         `;
       }).join('');
