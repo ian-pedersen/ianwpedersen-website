@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Builder — Ian Pedersen</title>
+<meta name="description" content="A structured prompt builder: pick a task, fill in the details, and copy an optimized prompt into any LLM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand">
+      <img src="images/headshot.jpg" alt="Ian Pedersen">
+      <span>Ian Pedersen</span>
+    </div>
+    <nav class="nav mono">
+      <a href="index.html" class="c-rust">Home</a>
+      <a href="essays.html" class="c-maroon">Essays</a>
+      <a href="projects.html" class="current c-ochre">Projects</a>
+      <a href="background.html" class="c-amber">CV</a>
+    </nav>
+  </header>
+
+  <div class="page-title">
+    <p class="row-eyebrow mono c-rust"><a href="projects.html">AI Prompting Toolkit</a></p>
+    <h1 class="c-ochre">Prompt Builder</h1>
+    <p class="tk-intro">Pick a task, fill in what you know, and copy the result into any LLM. The structure follows Google's <a href="https://www.kaggle.com/whitepaper-prompt-engineering" target="_blank" rel="noopener">Prompt Engineering</a> whitepaper: a role, specific context, a clear instruction, an explicit output format, examples, and a reasoning technique matched to the task.</p>
+  </div>
+</div>
+
+<div class="divider"><div class="wrap"></div></div>
+
+<div class="wrap">
+  <div class="tk-layout">
+
+    <form class="tk-form" id="tk-form" autocomplete="off" onsubmit="return false">
+
+      <section class="tk-step">
+        <p class="tk-step-label mono">01 — Task type</p>
+        <div class="tk-tasks" id="tk-tasks" role="radiogroup" aria-label="Task type"></div>
+        <p class="tk-task-blurb" id="tk-task-blurb"></p>
+      </section>
+
+      <section class="tk-step">
+        <p class="tk-step-label mono">02 — Goal &amp; context</p>
+        <label class="tk-field">
+          <span class="tk-label">Goal <em>one sentence, starting with an action verb</em></span>
+          <textarea id="f-goal" rows="2"></textarea>
+        </label>
+        <label class="tk-field">
+          <span class="tk-label">Context <em>background the model can't know: project, situation, what's been done</em></span>
+          <textarea id="f-context" rows="4" placeholder="e.g. This is for my personal site, a static HTML/CSS site hosted on GitHub Pages. I'm comfortable with Python but newer to JavaScript."></textarea>
+        </label>
+      </section>
+
+      <section class="tk-step">
+        <p class="tk-step-label mono">03 — Task details</p>
+        <div id="tk-details"></div>
+      </section>
+
+      <section class="tk-step">
+        <p class="tk-step-label mono">04 — Output</p>
+        <label class="tk-field">
+          <span class="tk-label">Role <em>who the model should act as</em></span>
+          <textarea id="f-role" rows="2"></textarea>
+        </label>
+        <label class="tk-field">
+          <span class="tk-label">Output format <em>be specific about structure</em></span>
+          <textarea id="f-format" rows="4"></textarea>
+        </label>
+        <div class="tk-row2">
+          <label class="tk-field">
+            <span class="tk-label">Length</span>
+            <input id="f-length" type="text" placeholder="e.g. under 500 words">
+          </label>
+          <label class="tk-field">
+            <span class="tk-label">Tone / style</span>
+            <input id="f-tone" type="text" placeholder="e.g. direct, plain language">
+          </label>
+        </div>
+        <label class="tk-field">
+          <span class="tk-label">Examples <em>paste output you'd like it to imitate; separate several with a line of ---</em></span>
+          <textarea id="f-examples" rows="4" placeholder="The guide calls examples the single most effective practice. Even one short sample of the style or structure you want helps."></textarea>
+        </label>
+        <label class="tk-field">
+          <span class="tk-label">Requirements <em>one per line; phrase as what to do</em></span>
+          <textarea id="f-constraints" rows="3" placeholder="e.g. Use only vanilla JavaScript&#10;Keep each section under 5 bullets"></textarea>
+        </label>
+      </section>
+
+      <section class="tk-step">
+        <p class="tk-step-label mono">05 — Technique</p>
+        <div class="tk-techs" id="tk-techs"></div>
+      </section>
+
+    </form>
+
+    <aside class="tk-output">
+      <div class="tk-output-sticky">
+        <div class="tk-output-head">
+          <p class="tk-step-label mono">Your prompt</p>
+          <span class="tk-count mono" id="tk-count"></span>
+        </div>
+        <pre class="tk-prompt" id="tk-prompt" tabindex="0" aria-live="polite"></pre>
+        <div class="tk-actions mono">
+          <button type="button" class="tk-btn tk-btn-primary" id="tk-copy">Copy prompt</button>
+          <button type="button" class="tk-btn" id="tk-reset">Clear form</button>
+        </div>
+        <div class="tk-check">
+          <p class="tk-step-label mono">Prompt check</p>
+          <ul id="tk-lint"></ul>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links mono">
+      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="copyright">&copy; Ian Pedersen <span id="year"></span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="toolkit.js"></script>
+</body>
+</html>
