@@ -94,10 +94,10 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* Color utilities */
-.c-rust { color: var(--rust); }
-.c-maroon { color: var(--maroon); }
-.c-ochre { color: var(--ochre); }
-.c-amber { color: var(--amber); }
+.c-rust { color: var(--rust); --accent: var(--rust); }
+.c-maroon { color: var(--maroon); --accent: var(--maroon); }
+.c-ochre { color: var(--ochre); --accent: var(--ochre); }
+.c-amber { color: var(--amber); --accent: var(--amber); }
 
 /* Pill buttons */
 .pill {
@@ -107,11 +107,14 @@ a { text-decoration: none; color: inherit; }
   border-radius: 3px;
   font-size: 12px;
   letter-spacing: 0.03em;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
+/* Invert on hover; --accent comes from the .c-* color class */
 .pill:hover {
-  background: currentColor;
-  color: var(--bg);
+  background: var(--accent, var(--fg));
+  border-color: var(--accent, var(--fg));
+  color: #ffffff;
 }
 
 /* Home hero */
