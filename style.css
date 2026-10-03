@@ -408,7 +408,7 @@ a { text-decoration: none; color: inherit; }
 
 /* Essays page */
 .essays-body {
-  padding: 70px 0;
+  padding: 24px 0 70px;
 }
 
 .post-card {
