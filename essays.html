@@ -34,15 +34,11 @@
 <div class="divider"><div class="wrap"></div></div>
 <div class="wrap">
   <div class="essays-body">
-    <p class="intro">I publish my essays on Substack.</p>
-    <a href="https://ianpedersen2.substack.com" target="_blank" rel="noopener" class="pill c-maroon">
-      <span class="mono">Read on Substack &rarr;</span>
-    </a>
+    <div id="recent-posts-list"></div>
 
-    <div id="recent-posts" class="recent-posts" hidden>
-      <p class="recent-posts-label mono">Recent posts</p>
-      <div id="recent-posts-list"></div>
-    </div>
+    <a href="https://ianpedersen2.substack.com" target="_blank" rel="noopener" class="pill c-maroon substack-cta">
+      <span class="mono">Read more on Substack &rarr;</span>
+    </a>
   </div>
 </div>
 
@@ -69,7 +65,6 @@
     .then(res => res.ok ? res.json() : [])
     .then(posts => {
       if (!posts || !posts.length) return;
-      const container = document.getElementById('recent-posts');
       const list = document.getElementById('recent-posts-list');
       list.innerHTML = posts.map(post => {
         const date = post.pub_date
@@ -83,7 +78,6 @@
           </article>
         `;
       }).join('');
-      container.hidden = false;
     })
     .catch(() => {});
 </script>

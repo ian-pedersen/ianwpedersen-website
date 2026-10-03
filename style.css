@@ -411,27 +411,18 @@ a { text-decoration: none; color: inherit; }
   padding: 70px 0;
 }
 
-.essays-body > p.intro {
-  margin: 0 0 28px;
-  font-size: 26px;
-  line-height: 1.5;
-}
-
-.recent-posts {
-  margin-top: 56px;
-}
-
-.recent-posts-label {
-  margin: 0 0 8px;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--amber);
-}
-
 .post-card {
   padding: 28px 0;
   border-top: 1px solid var(--border);
+}
+
+.post-card:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.substack-cta {
+  margin-top: 28px;
 }
 
 .post-date {
