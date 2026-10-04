@@ -141,6 +141,22 @@
       ]
     },
     {
+      id: 'deck', label: 'Build a deck',
+      blurb: 'Plan a PowerPoint presentation slide by slide, from storyline to speaker notes.',
+      goal: 'Build a 10-slide deck recommending a pricing strategy to a client\'s executive team.',
+      role: 'You are an experienced strategy consultant who builds clear, persuasive presentations. You lead with the answer, give every slide one takeaway, and use visuals to prove the point.',
+      format: 'Start with the storyline: the core message in one sentence, then the 3–5 supporting points that prove it. Then a slide-by-slide outline. For each slide: slide number; headline (a full-sentence takeaway, not a topic label); 3–5 concise bullets of on-slide content; a suggested visual (chart type and what it shows, diagram, table, or image); and 2–3 sentences of speaker notes. End with an appendix list of backup slides worth preparing.',
+      tech: ['clarify'],
+      fields: [
+        { id: 'purpose', label: 'Purpose of the deck', type: 'area', ph: 'e.g. Get approval to renegotiate the top 3 payer contracts' },
+        { id: 'audience', label: 'Audience', type: 'text', ph: 'e.g. Client CEO and CFO; financially fluent, short on time' },
+        { id: 'message', label: 'Key message / ask', type: 'area', ph: 'The one thing the audience should believe or do afterward' },
+        { id: 'slides', label: 'Number of slides / time slot', type: 'text', ph: 'e.g. 10 slides, 20-minute meeting' },
+        { id: 'material', label: 'Source material and data', type: 'area', ph: 'Paste findings, numbers, notes, or an existing outline' },
+        { id: 'style', label: 'Template / visual style', type: 'text', ph: 'e.g. Company template, minimal text, one chart per slide' }
+      ]
+    },
+    {
       id: 'analyze', label: 'Analyze / decide',
       blurb: 'Compare options or work through a question with explicit reasoning.',
       goal: 'Compare these options and recommend one.',
