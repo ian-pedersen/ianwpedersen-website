@@ -210,7 +210,6 @@
 
   // ---------- State ----------
 
-  var STORAGE_KEY = 'prompt-builder-v1';
   var COMMON = ['goal', 'context', 'role', 'format', 'length', 'tone', 'examples', 'constraints'];
 
   function blankState() {
@@ -228,24 +227,15 @@
     return o;
   }
 
-  function load() {
-    try {
-      var s = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if (s && taskById(s.task)) return Object.assign(blankState(), s);
-    } catch (e) { /* storage unavailable */ }
-    return blankState();
-  }
-
-  function save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
-  }
+  // Every visit starts blank. Remove inputs saved by earlier versions of the page.
+  try { localStorage.removeItem('prompt-builder-v1'); } catch (e) { /* storage unavailable */ }
 
   function taskById(id) {
     for (var i = 0; i < TASKS.length; i++) if (TASKS[i].id === id) return TASKS[i];
     return null;
   }
 
-  var state = load();
+  var state = blankState();
   var $ = function (id) { return document.getElementById(id); };
 
   // ---------- Rendering the form ----------
@@ -471,7 +461,6 @@
       li.textContent = it.text;
       ul.appendChild(li);
     });
-    save();
   }
 
   COMMON.forEach(function (k) {
