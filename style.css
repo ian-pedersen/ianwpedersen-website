@@ -354,6 +354,15 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.7;
 }
 
+.job li a {
+  color: var(--maroon);
+  border-bottom: 1px solid currentColor;
+}
+
+.job li a:hover {
+  color: var(--rust);
+}
+
 /* Additional info cards */
 .info-grid {
   display: grid;
