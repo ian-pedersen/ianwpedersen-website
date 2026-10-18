@@ -73,6 +73,55 @@ a { text-decoration: none; color: inherit; }
   font-size: 17px;
 }
 
+.avatar-btn {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 999px;
+  cursor: zoom-in;
+}
+
+.avatar-btn:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 2px;
+}
+
+.photo-dialog {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  max-width: none;
+  max-height: none;
+}
+
+.photo-dialog::backdrop {
+  background: rgba(58, 42, 31, 0.6);
+}
+
+.photo-dialog img {
+  display: block;
+  width: min(90vw, 85vh, 560px);
+  height: auto;
+  border-radius: 6px;
+}
+
+.photo-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
 .nav {
   display: flex;
   gap: 26px;
