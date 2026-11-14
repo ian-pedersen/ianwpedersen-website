@@ -81,3 +81,7 @@ Ease starts at 2.5 and never drops below 1.3. Intervals cap at 365 days. A card 
 ## Keyboard
 
 Space = flip · 1–4 = rate · F = flag · E = edit · Esc = end session · Ctrl+Enter = reveal in recall mode · / = search
+
+## Hosting note
+
+The repo root has an empty `.nojekyll` file. Without it, GitHub Pages runs Jekyll, which turns the deck and guide `.md` files into HTML pages, so the raw files the app fetches return 404. Keep that file.
