@@ -41,6 +41,21 @@
       ]
     },
     {
+      id: 'prdbuild', label: 'Build from a PRD',
+      blurb: 'Hand over a finished PRD and get working code that traces back to every requirement.',
+      goal: 'Build the first milestone of the product described in this PRD.',
+      role: 'You are a senior software engineer who turns product requirements documents into working software. You build exactly what the PRD specifies, work in small increments that can each be run and tested, and flag ambiguities instead of guessing.',
+      format: 'Markdown with these sections: Requirements map (each PRD requirement in scope, by number, with one line on how you will meet it); Build plan (ordered steps, each small enough to run and test on its own); Implementation (for each file: the file path, then the complete code in a fenced code block); How to run and test; Requirements checklist (each requirement marked Done, Partial, or Not started, with where it lives in the code); Open questions and decisions (anything the PRD left unclear and what you chose). Build only what the PRD specifies, and list any features you think are worth adding separately at the end.',
+      tech: ['clarify'],
+      fields: [
+        { id: 'prd', label: 'PRD', type: 'area', ph: 'Paste the full PRD, ideally with numbered requirements' },
+        { id: 'scope', label: 'Scope for this build', type: 'text', ph: 'e.g. Milestone 1 only: requirements 1–6' },
+        { id: 'stack', label: 'Stack / environment', type: 'text', ph: 'e.g. Static HTML/CSS/JS on GitHub Pages, no build step' },
+        { id: 'existing', label: 'Existing code or repo structure', type: 'code', ph: 'Paste relevant files or the folder structure, or leave blank for a new project' },
+        { id: 'conventions', label: 'Conventions to follow', type: 'text', ph: 'e.g. Vanilla JS, 2-space indent, comment only non-obvious logic' }
+      ]
+    },
+    {
       id: 'build', label: 'Write code',
       blurb: 'Generate working code for a well-defined feature.',
       goal: 'Write a JavaScript function that copies the generated prompt to the clipboard and shows a confirmation.',
