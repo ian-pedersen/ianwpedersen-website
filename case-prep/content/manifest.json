@@ -1,0 +1,45 @@
+{
+  "categories": [
+    { "id": "frameworks", "title": "Structures & Frameworks" },
+    { "id": "brainstorming", "title": "Brainstorming" },
+    { "id": "industries", "title": "Industry Guides" },
+    { "id": "math", "title": "Math & Formulas" }
+  ],
+  "decks": [
+    "decks/structuring-method.md",
+    "decks/structure-basics.md",
+    "decks/logical-frameworks.md",
+    "decks/academic-frameworks.md",
+    "decks/profitability.md",
+    "decks/revenue-growth.md",
+    "decks/cost-reduction.md",
+    "decks/pricing.md",
+    "decks/market-entry.md",
+    "decks/m-and-a.md",
+    "decks/private-equity.md",
+    "decks/investment-decision.md",
+    "decks/competitive-response.md",
+    "decks/process-optimization.md",
+
+    "decks/revenue-levers.md",
+    "decks/cost-levers.md",
+    "decks/risks-and-benefits.md",
+    "decks/market-archetypes.md",
+
+    "decks/airlines.md",
+    "decks/automotive.md",
+    "decks/cpg.md",
+    "decks/energy.md",
+    "decks/media.md",
+    "decks/financial-services.md",
+    "decks/hospitality.md",
+    "decks/pharma.md",
+    "decks/retail.md",
+    "decks/telecom.md",
+    "decks/cross-industry.md",
+
+    "decks/core-formulas.md",
+    "decks/market-sizing.md",
+    "decks/mental-math.md"
+  ]
+}

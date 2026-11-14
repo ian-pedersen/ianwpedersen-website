@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Prep — Ian Pedersen</title>
+<meta name="description" content="A memorization tool for case interviews: study guides plus spaced-repetition flashcards for frameworks, brainstorming lists, industry primers and case math.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="case-prep/case-prep.css">
+<link rel="icon" href="data:,">
+<link rel="modulepreload" href="case-prep/js/app.js">
+<link rel="modulepreload" href="case-prep/js/md.js">
+<link rel="modulepreload" href="case-prep/js/srs.js">
+<link rel="modulepreload" href="case-prep/js/store.js"></head>
+<body>
+
+<div class="wrap">
+  <header class="site-header">
+    <div class="brand">
+      <button type="button" class="avatar-btn" aria-label="View larger photo">
+        <img src="images/headshot.jpg" alt="Ian Pedersen">
+      </button>
+      <span>Ian Pedersen</span>
+    </div>
+    <nav class="nav mono">
+      <a href="index.html" class="c-rust">Home</a>
+      <a href="essays.html" class="c-maroon">Essays</a>
+      <a href="projects.html" class="current c-ochre">Projects</a>
+      <a href="background.html" class="c-amber">CV</a>
+    </nav>
+  </header>
+
+  <div class="page-title">
+    <p class="row-eyebrow mono c-rust"><a href="projects.html">Projects</a></p>
+    <h1 class="c-ochre">Case Prep</h1>
+    <p class="tk-intro">A memorization tool for case interviews. Read the study guides, then lock in frameworks, brainstorming lists, industry metrics and case math with spaced-repetition flashcards. A daily 10–20 minute review is the whole system.</p>
+  </div>
+</div>
+
+<div class="divider cp-hide-studying"><div class="wrap"></div></div>
+
+<div class="wrap">
+  <div class="cp-toolbar">
+    <nav class="cp-nav mono" aria-label="Case Prep">
+      <a href="#/" data-nav="home">Today</a>
+      <a href="#/custom" data-nav="custom">Custom session</a>
+      <a href="#/progress" data-nav="progress">Progress</a>
+      <a href="#/flagged" data-nav="flagged">Flagged</a>
+      <a href="#/manage" data-nav="manage">Manage cards</a>
+    </nav>
+    <form class="cp-searchbar" id="cp-search-form" role="search">
+      <input type="search" id="cp-q" class="cp-input" placeholder="Search cards and guides  ( / )" aria-label="Search cards and guides">
+    </form>
+  </div>
+  <main id="cp-app" class="cp-app" aria-live="polite"><p class="cp-note">Loading cards…</p></main>
+</div>
+
+<dialog id="cp-dialog" class="cp-dialog" aria-label="Edit card"></dialog>
+<div id="cp-flash" class="cp-flash mono" role="status"></div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links mono">
+      <a href="mailto:ian_pedersen@berkeley.edu">Email</a>
+      <a href="https://www.linkedin.com/in/ianpedersen2" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+    <p class="copyright">&copy; Ian Pedersen <span id="year"></span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="script.js"></script>
+<script type="module" src="case-prep/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Case Prep tests</title>
+<style>
+  body { font: 14px/1.5 'Space Mono', monospace; margin: 24px; background: #fff; color: #222; }
+  .pass { color: #2e7d32; } .fail { color: #c62828; font-weight: bold; }
+  h1 { font-size: 18px; }
+</style>
+</head>
+<body>
+<h1>Case Prep unit tests</h1>
+<p id="summary">Running…</p>
+<ol id="out"></ol>
+<script type="module">
+import { renderMarkdown, parseDeck, parseCSV, deckToMarkdown, derivedId } from './js/md.js';
+import { schedule, addDays, stage, isDue } from './js/srs.js';
+
+const out = document.getElementById('out');
+let pass = 0, fail = 0;
+function t(name, fn) {
+  const li = document.createElement('li');
+  try { fn(); li.className = 'pass'; li.textContent = 'PASS ' + name; pass++; }
+  catch (e) { li.className = 'fail'; li.textContent = 'FAIL ' + name + ' — ' + e.message; fail++; }
+  out.appendChild(li);
+}
+const eq = (a, b) => { if (JSON.stringify(a) !== JSON.stringify(b)) throw new Error(`expected ${JSON.stringify(b)}, got ${JSON.stringify(a)}`); };
+const ok = (v, msg) => { if (!v) throw new Error(msg || 'not truthy'); };
+const T = '2026-11-14';
+
+// Scheduler
+t('new card: Again requeues soon, stays due today', () => { const r = schedule(null, 1, T); eq(r.requeue, 'soon'); eq(r.state.due, T); eq(r.state.s, 'learn'); });
+t('new card: Hard requeues to end of session', () => { const r = schedule(null, 2, T); eq(r.requeue, 'end'); });
+t('new card: Good = 1 day, Easy = 4 days', () => { eq(schedule(null, 3, T).state.ivl, 1); eq(schedule(null, 4, T).state.ivl, 4); eq(schedule(null, 3, T).state.due, '2026-11-15'); });
+t('review card: intervals strictly increase Hard < Good < Easy', () => {
+  const prev = { s: 'review', ivl: 10, ease: 2.5, reps: 3, lapses: 0, due: T };
+  const [h, g, e] = [2, 3, 4].map((r) => schedule(prev, r, T).state.ivl);
+  ok(10 < h && h < g && g < e, `${h} ${g} ${e}`); eq(g, 25);
+});
+t('lapse lowers ease, floors at 1.3, counts lapse', () => {
+  const r = schedule({ s: 'review', ivl: 30, ease: 1.4, reps: 5, lapses: 0, due: T }, 1, T);
+  eq(r.state.ease, 1.3); eq(r.state.lapses, 1); eq(r.state.ivl, 0); eq(r.requeue, 'soon');
+});
+t('interval caps at 365 days', () => { eq(schedule({ s: 'review', ivl: 300, ease: 3, reps: 9, lapses: 0, due: T }, 4, T).state.ivl, 365); });
+t('addDays crosses month and year', () => { eq(addDays('2026-12-30', 3), '2027-01-02'); eq(addDays('2026-03-01', -1), '2026-02-28'); });
+t('stage: new / learning / mature at 21 days', () => { eq(stage(null), 'new'); eq(stage({ s: 'review', ivl: 20 }), 'learning'); eq(stage({ s: 'review', ivl: 21 }), 'mature'); });
+t('isDue', () => { ok(isDue({ s: 'review', due: T }, T)); ok(!isDue({ s: 'review', due: '2026-11-15' }, T)); ok(!isDue({ s: 'new' }, T)); });
+
+// Deck parser
+const deckSrc = `---
+title: Test Deck
+category: math
+---
+
+## Q: What is RevPAR?
+@tags metric, Formula
+**RevPAR = Occupancy × ADR**
+
+## Q: Recall prompt
+@mode recall
+1. Market
+2. Client
+
+## Q: What is RevPAR?
+dup front
+`;
+t('parseDeck reads front matter, cards, tags, mode', () => {
+  const { meta, cards } = parseDeck(deckSrc, 'test');
+  eq(meta.title, 'Test Deck'); eq(meta.category, 'math'); eq(cards.length, 3);
+  eq(cards[0].tags, ['metric', 'formula']); eq(cards[0].back, '**RevPAR = Occupancy × ADR**');
+  eq(cards[1].mode, 'recall'); eq(cards[0].id, 'test:what-is-revpar');
+});
+t('parseDeck de-duplicates ids', () => { const { cards } = parseDeck(deckSrc, 'test'); eq(cards[2].id, 'test:what-is-revpar-2'); });
+t('deckToMarkdown round-trips', () => {
+  const { cards } = parseDeck(deckSrc, 'test');
+  const md = deckToMarkdown({ id: 'test', title: 'Test Deck', category: 'math' }, cards);
+  const again = parseDeck(md, 'test').cards;
+  eq(again.map((c) => [c.id, c.front, c.back, c.tags, c.mode]), cards.map((c) => [c.id, c.front, c.back, c.tags, c.mode]));
+});
+t('derivedId is stable', () => eq(derivedId('airlines', 'What is load factor?'), 'airlines:what-is-load-factor'));
+
+// CSV
+t('parseCSV handles quotes, commas and newlines', () => {
+  const rows = parseCSV('front,back,deck,tags\n"What is NIM?","Spread, as a %\nof assets",Banks,"metric;formula"\n');
+  eq(rows.length, 2); eq(rows[1][1], 'Spread, as a %\nof assets'); eq(rows[1][3], 'metric;formula');
+});
+t('parseCSV handles escaped quotes and CRLF', () => { eq(parseCSV('a,"say ""hi"""\r\nb,c'), [['a', 'say "hi"'], ['b', 'c']]); });
+
+// Markdown
+t('renders bold, lists and nested lists', () => {
+  const h = renderMarkdown('- **A**\n  - b\n- c').html.replace(/\n/g, '');
+  eq(h, '<ul><li><strong>A</strong><ul><li>b</li></ul></li><li>c</li></ul>');
+});
+t('renders tables', () => { ok(/<table>.*<th>X<\/th>.*<td>1<\/td>/s.test(renderMarkdown('| X | Y |\n|---|---|\n| 1 | 2 |').html)); });
+t('escapes HTML', () => { const tag = '<scr' + 'ipt>'; ok(!renderMarkdown(tag + 'alert(1)<\/scr' + 'ipt>').html.includes(tag)); });
+t('headings get ids for the table of contents', () => { eq(renderMarkdown('## Money in').headings[0].id, 'money-in'); });
+t('blocks javascript: links', () => { ok(!renderMarkdown('[x](javascript:alert(1))').html.includes('javascript:')); });
+
+// Content files
+const man = await (await fetch('content/manifest.json')).json();
+let total = 0;
+const ids = new Set();
+const dupes = [];
+for (const p of man.decks) {
+  const id = p.split('/').pop().replace('.md', '');
+  const src = await (await fetch('content/' + p)).text();
+  const { meta, cards } = parseDeck(src, id);
+  t(`deck ${id}: ${cards.length} cards, valid category, backs not empty`, () => {
+    ok(cards.length > 0, 'no cards');
+    ok(man.categories.some((c) => c.id === meta.category), 'bad category ' + meta.category);
+    cards.forEach((c) => ok(c.back.length > 0, 'empty back: ' + c.front));
+  });
+  if (meta.guide) {
+    const res = await fetch('content/' + meta.guide);
+    t(`deck ${id}: guide ${meta.guide} exists`, () => ok(res.ok));
+  }
+  cards.forEach((c) => { if (ids.has(c.id)) dupes.push(c.id); ids.add(c.id); });
+  total += cards.length;
+}
+t(`card ids are unique across decks (${total} cards)`, () => eq(dupes, []));
+
+// Search speed on 1,000 synthetic cards
+t('search over 1,000 cards runs under 200 ms', () => {
+  const hay = [...Array(1000)].map((_, i) => `card ${i} revenue cost occupancy adr revpar nim margin ${'lorem ipsum '.repeat(30)}`.toLowerCase());
+  const t0 = performance.now();
+  for (let k = 0; k < 10; k++) hay.filter((h) => ['revpar', 'margin'].every((tok) => h.includes(tok)));
+  const ms = (performance.now() - t0) / 10;
+  ok(ms < 200, ms + ' ms');
+});
+
+document.getElementById('summary').innerHTML = `<b class="${fail ? 'fail' : 'pass'}">${pass} passed, ${fail} failed</b>`;
+window.__results = { pass, fail, total };
+</script>
+</body>
+</html>
