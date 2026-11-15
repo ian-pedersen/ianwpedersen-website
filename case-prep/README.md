@@ -61,7 +61,7 @@ No code changes are needed.
 
 ## Edits made in the browser
 
-Cards added, edited, deleted or imported on the page are saved in the browser (localStorage), not in these files. To make them permanent: Manage cards → Download deck as Markdown, replace the file in `content/decks/`, commit and push.
+Each deck page has **Edit this deck**: rename the deck, add cards, or tick cards (shift-click for a range) and delete them in bulk. Cards added, edited, deleted or imported on the page, and deck renames, are saved in the browser (localStorage), not in these files. To make them permanent: Manage cards → Download deck as Markdown, replace the file in `content/decks/`, commit and push.
 
 ## Backups and moving devices
 

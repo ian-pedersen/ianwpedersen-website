@@ -230,6 +230,7 @@ export function parseDeck(src, deckId) {
 export function deckToMarkdown(deck, cards) {
   const head = ['---', `title: ${deck.title}`, `category: ${deck.category}`];
   if (deck.guide) head.push(`guide: ${deck.guide}`);
+  if (deck.description) head.push(`description: ${deck.description}`);
   head.push('---', '');
   const body = cards.map((c) => {
     const meta = [];

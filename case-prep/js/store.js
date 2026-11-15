@@ -10,7 +10,7 @@ export const blank = () => ({
   log: [], // [timestampMs, cardId, rating, wasNew(0/1), intervalBefore]
   days: {}, // 'YYYY-MM-DD' -> ratings that day (drives the streak)
   flags: {}, // cardId -> true
-  local: { decks: {}, cards: {}, overrides: {}, deleted: {} },
+  local: { decks: {}, cards: {}, overrides: {}, deleted: {}, deckEdits: {} }, // deckEdits: deckId -> {title, description}
   settings: { newPerDay: 20 },
 });
 

@@ -79,6 +79,7 @@ function buildCards() {
   const L = S().local;
   decks = new Map(content.decks);
   for (const d of Object.values(L.decks)) if (!decks.has(d.id)) decks.set(d.id, { ...d, local: true });
+  for (const [id, o] of Object.entries(L.deckEdits || {})) if (decks.has(id)) decks.set(id, { ...decks.get(id), ...o, edited: true });
   cards = new Map();
   for (const c of content.fileCards) {
     if (L.deleted[c.id]) continue;
@@ -336,6 +337,7 @@ function bindLazyBacks(root) {
 function viewDeck(r) {
   const d = decks.get(r.arg);
   if (!d) return notFound('That deck does not exist.');
+  if (r.params.get('edit')) return viewDeckEdit(d);
   const st = deckStats(d.id);
   const list = cardsInDeck(d.id);
   app.innerHTML = `
@@ -350,10 +352,118 @@ function viewDeck(r) {
   <div class="cp-row-btns">
     <a class="cp-btn cp-btn-primary" href="#/custom?deck=${encodeURIComponent(d.id)}">Study this deck</a>
     ${content.guides.has(d.id) ? `<a class="cp-btn" href="#/guide/${encodeURIComponent(d.id)}">Read study guide</a>` : ''}
-    <a class="cp-btn" href="#/new?deck=${encodeURIComponent(d.id)}">Add card</a>
+    <a class="cp-btn" href="#/deck/${encodeURIComponent(d.id)}?edit=1">Edit this deck</a>
   </div>
   <div class="cp-list">${list.map((c) => cardListItem(c, { showStage: true })).join('') || '<p class="cp-note">No cards yet.</p>'}</div>`;
   bindLazyBacks(app);
+}
+
+// Deck edit mode: rename the deck, add cards, and tick cards to delete in bulk.
+function viewDeckEdit(d) {
+  const list = cardsInDeck(d.id);
+  const base = `#/deck/${encodeURIComponent(d.id)}`;
+  app.innerHTML = `
+  <p class="cp-crumb mono"><a href="#/">Home</a> / <a href="${base}">${esc(d.title)}</a> / Edit</p>
+  <h2 class="cp-h2">Edit deck</h2>
+  <form class="cp-form cp-deck-form">
+    <label class="cp-field"><span>Title</span><input name="title" type="text" required value="${esc(d.title)}"></label>
+    <label class="cp-field"><span>Description <em>optional, one line</em></span><input name="description" type="text" value="${esc(d.description || '')}"></label>
+    <div class="cp-row-btns">
+      <button type="submit" class="cp-btn">Save title and description</button>
+      ${d.edited ? '<button type="button" class="cp-btn" data-act="revert">Revert to file version</button>' : ''}
+    </div>
+  </form>
+  <div class="cp-row-btns">
+    <a class="cp-btn cp-btn-primary" href="#/new?deck=${encodeURIComponent(d.id)}&ret=edit">Add card</a>
+    <a class="cp-btn" href="${base}">Done</a>
+  </div>
+  <div class="cp-bulk">
+    <label class="cp-check"><input type="checkbox" id="cp-sel-all"> Select all</label>
+    <span class="cp-bulk-count mono" role="status"></span>
+    <button type="button" class="cp-btn cp-btn-danger" id="cp-del-sel" disabled>Delete selected</button>
+  </div>
+  <div class="cp-list cp-sel-list">${
+    list
+      .map(
+        (c) => `<label class="cp-sel-row"><input type="checkbox" value="${esc(c.id)}">
+          <span class="cp-item-front">${frontHTML(c.front)}</span>
+          <a class="cp-sel-edit mono" href="#/edit/${encodeURIComponent(c.id)}?ret=edit">Edit</a></label>`
+      )
+      .join('') || '<p class="cp-note">No cards yet.</p>'
+  }</div>
+  <p class="cp-note">Changes are saved in this browser. Use Manage cards → Download deck as Markdown to copy them into the site repo.</p>`;
+
+  const form = app.querySelector('.cp-deck-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = form.elements.title.value.trim();
+    if (!title) return;
+    const description = form.elements.description.value.trim();
+    const L = S().local;
+    if (L.decks[d.id]) Object.assign(L.decks[d.id], { title, description });
+    else (L.deckEdits || (L.deckEdits = {}))[d.id] = { title, description };
+    store.save();
+    buildCards();
+    render();
+    flash('Deck saved');
+  });
+  const rev = form.querySelector('[data-act="revert"]');
+  if (rev)
+    rev.addEventListener('click', () => {
+      delete S().local.deckEdits[d.id];
+      store.save();
+      buildCards();
+      render();
+      flash('Deck reverted');
+    });
+
+  const boxes = [...app.querySelectorAll('.cp-sel-list input[type="checkbox"]')];
+  const all = app.querySelector('#cp-sel-all');
+  const delBtn = app.querySelector('#cp-del-sel');
+  const count = app.querySelector('.cp-bulk-count');
+  const sync = () => {
+    const n = boxes.filter((b) => b.checked).length;
+    count.textContent = n ? `${n} selected` : '';
+    delBtn.disabled = !n;
+    delBtn.textContent = n ? `Delete selected (${n})` : 'Delete selected';
+    all.checked = n > 0 && n === boxes.length;
+    all.indeterminate = n > 0 && n < boxes.length;
+  };
+  all.disabled = !boxes.length;
+  all.addEventListener('change', () => {
+    boxes.forEach((b) => (b.checked = all.checked));
+    sync();
+  });
+  // Shift-click ticks or unticks every card between the last click and this one.
+  let last = -1;
+  boxes.forEach((b, i) =>
+    b.addEventListener('click', (e) => {
+      if (e.shiftKey && last >= 0) {
+        const [a, z] = [Math.min(last, i), Math.max(last, i)];
+        for (let k = a; k <= z; k++) boxes[k].checked = b.checked;
+      }
+      last = i;
+      sync();
+    })
+  );
+  delBtn.addEventListener('click', () => {
+    const ids = boxes.filter((b) => b.checked).map((b) => b.value);
+    if (!ids.length) return;
+    if (!confirm(`Delete ${plural(ids.length, 'card')}? They disappear from all decks.`)) return;
+    const L = S().local;
+    for (const id of ids) {
+      const c = cards.get(id);
+      if (!c) continue;
+      if (c.local) delete L.cards[id];
+      else L.deleted[id] = 1;
+      delete S().flags[id];
+    }
+    store.save();
+    buildCards();
+    render();
+    flash(`Deleted ${plural(ids.length, 'card')}`);
+  });
+  sync();
 }
 
 function viewGuide(r) {
@@ -909,14 +1019,16 @@ function bindEditor(root, c, done) {
 function viewEdit(r) {
   const c = r.name === 'edit' ? cards.get(r.arg) : null;
   if (r.name === 'edit' && !c) return notFound('That card does not exist.');
-  const backTo = c ? `#/deck/${encodeURIComponent(c.deck)}` : r.params.get('deck') ? `#/deck/${encodeURIComponent(r.params.get('deck'))}` : '#/manage';
+  // ret=edit: opened from deck edit mode, so go back there.
+  const ret = r.params.get('ret') === 'edit';
+  const backTo = (c ? `#/deck/${encodeURIComponent(c.deck)}` : r.params.get('deck') ? `#/deck/${encodeURIComponent(r.params.get('deck'))}` : '#/manage') + (ret && (c || r.params.get('deck')) ? '?edit=1' : '');
   app.innerHTML = `<h2 class="cp-h2">${c ? 'Edit card' : 'Add card'}</h2>${editorHTML(c, { deck: r.params.get('deck') })}`;
   bindEditor(app, c, (result) => {
     if (result === 'saved' && !c) {
       // Stay on the form for fast entry of several cards.
       const deck = app.querySelector('select[name="deck"]').value;
       flash('Card added.');
-      return go(`#/new?deck=${encodeURIComponent(deck === '__new' ? [...decks.keys()].pop() : deck)}&t=${Date.now()}`);
+      return go(`#/new?deck=${encodeURIComponent(deck === '__new' ? [...decks.keys()].pop() : deck)}${ret ? '&ret=edit' : ''}&t=${Date.now()}`);
     }
     go(backTo);
   });
