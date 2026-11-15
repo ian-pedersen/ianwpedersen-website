@@ -194,8 +194,8 @@ kbd {
 .cp-item-front { flex: 1 1 300px; font-size: 15px; }
 .cp-item-meta { display: flex; flex-wrap: wrap; gap: 5px; font-size: 10.5px; }
 .cp-item-body { padding: 4px 16px 12px; }
-.cp-item-actions { display: flex; gap: 16px; font-size: 12px; margin: 10px 0 0; }
-.cp-item-actions a { color: var(--maroon); border-bottom: 1px solid currentColor; }
+.cp-item-actions { display: flex; gap: 20px; font-size: 12px; margin: 0; }
+.cp-item-actions a, .cp-item-actions .cp-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--maroon); border-bottom: 0; text-decoration: underline; text-underline-offset: 3px; }
 .cp-chip { padding: 2px 7px; border-radius: 3px; background: var(--tint2); color: var(--muted); white-space: nowrap; }
 .cp-chip-tag { background: transparent; border: 1px solid var(--tint-border); }
 .cp-chip-flag { background: var(--rust); color: var(--on-accent); }

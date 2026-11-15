@@ -285,10 +285,35 @@ function cardListItem(c, opts = {}) {
       </span>
     </summary>
     <div class="cp-item-body"><div class="cp-prose cp-lazy"></div>
-      <p class="cp-item-actions mono"><a href="#/edit/${encodeURIComponent(c.id)}">Edit</a>${opts.showDeck ? ` <a href="#/deck/${encodeURIComponent(c.deck)}">Open deck</a>` : ''}${opts.unflag ? ` <button type="button" class="cp-link" data-unflag="${esc(c.id)}">Unflag</button>` : ''}</p>
+      <p class="cp-item-actions mono"><a href="#/edit/${encodeURIComponent(c.id)}">Edit</a> <button type="button" class="cp-link" data-del="${esc(c.id)}">Delete</button>${opts.showDeck ? ` <a href="#/deck/${encodeURIComponent(c.deck)}">Open deck</a>` : ''}${opts.unflag ? ` <button type="button" class="cp-link" data-unflag="${esc(c.id)}">Unflag</button>` : ''}</p>
     </div>
   </details>`;
 }
+
+// Asks first. Returns true if the card was deleted.
+function deleteCard(c) {
+  if (!confirm('Delete this card? Its review history stays in your backup but the card disappears from all decks.')) return false;
+  const L = S().local;
+  if (c.local) delete L.cards[c.id];
+  else L.deleted[c.id] = 1;
+  delete S().flags[c.id];
+  store.save();
+  buildCards();
+  return true;
+}
+
+// Delete buttons in card lists (deck, search, flagged, manage): delete, then redraw the
+// current view in place.
+app.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-del]');
+  if (!b) return;
+  const c = cards.get(b.dataset.del);
+  if (!c || !deleteCard(c)) return;
+  const y = window.scrollY;
+  render();
+  window.scrollTo(0, y);
+  flash('Card deleted');
+});
 
 // Render card backs only when a row is opened, so long lists stay fast.
 function bindLazyBacks(root) {
@@ -869,14 +894,7 @@ function bindEditor(root, c, done) {
   const del = form.querySelector('[data-act="delete"]');
   if (del)
     del.addEventListener('click', () => {
-      if (!confirm('Delete this card? Its review history stays in your backup but the card disappears from all decks.')) return;
-      const L = S().local;
-      if (c.local) delete L.cards[c.id];
-      else L.deleted[c.id] = 1;
-      delete S().flags[c.id];
-      store.save();
-      buildCards();
-      done('deleted');
+      if (deleteCard(c)) done('deleted');
     });
   const rev = form.querySelector('[data-act="revert"]');
   if (rev)
